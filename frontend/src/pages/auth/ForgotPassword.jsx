@@ -1,13 +1,12 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 
-const Login = () => {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+const ForgotPassword = () => {
+  const [passNumber, setPassNumber] = useState("");
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    // Intentionally no authentication logic or backend calls
+    // Intentionally no backend calls or email sending logic
   };
 
   return (
@@ -47,65 +46,50 @@ const Login = () => {
               </div>
             </div>
 
-            <h2 className="text-2xl font-semibold text-gray-900">Welcome back</h2>
-            <p className="mt-1 text-sm text-gray-600 mb-6">Sign in to continue to ReportFlow</p>
+            <div className="mb-6">
+              <h2 className="text-2xl font-semibold text-gray-900">Forgot your password?</h2>
+              <p className="mt-2 text-sm leading-6 text-gray-600">
+                Enter your pass number to continue.
+              </p>
+            </div>
 
             <form onSubmit={handleSubmit} className="space-y-5">
               <div>
-                <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-1">
-                  Email
+                <label htmlFor="passNumber" className="block text-sm font-medium text-gray-700 mb-1">
+                  Pass Number
                 </label>
                 <input
-                  id="email"
-                  name="email"
-                  type="email"
-                  autoComplete="email"
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
+                  id="passNumber"
+                  name="passNumber"
+                  type="text"
+                  autoComplete="off"
+                  value={passNumber}
+                  onChange={(e) => setPassNumber(e.target.value)}
                   required
-                  className="w-full rounded-md border border-gray-300 px-3 py-2 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-sky-500 focus:border-transparent"
-                  placeholder="you@company.com"
-                />
-              </div>
-
-              <div>
-                <div className="flex items-center justify-between">
-                  <label htmlFor="password" className="block text-sm font-medium text-gray-700 mb-1">
-                    Password
-                  </label>
-                 <Link
-                     to="/forgot-password"
-                     className="text-sm text-sky-600 hover:underline"
-                  >
-                     Forgot password?
-                    </Link>
-                </div>
-                <input
-                  id="password"
-                  name="password"
-                  type="password"
-                  autoComplete="current-password"
-                  value={password}
-                  onChange={(e) => setPassword(e.target.value)}
-                  required
-                  className="w-full rounded-md border border-gray-300 px-3 py-2 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-sky-500 focus:border-transparent"
-                  placeholder="Enter your password"
+                  className="w-full rounded-md border border-gray-300 px-3 py-2.5 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-sky-500 focus:border-transparent"
+                  placeholder="Enter your pass number"
                 />
               </div>
 
               <div>
                 <button
                   type="submit"
-                  className="w-full inline-flex items-center justify-center rounded-md bg-sky-600 hover:bg-sky-700 px-4 py-2 text-white font-medium shadow-sm focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-sky-500"
+                  className="w-full inline-flex items-center justify-center rounded-md bg-sky-600 hover:bg-sky-700 px-4 py-2.5 text-white font-medium shadow-sm focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-sky-500 transition-colors"
                 >
-                  Sign in
+                  Continue
                 </button>
               </div>
             </form>
 
             <p className="mt-6 text-center text-sm text-gray-500">
-              Need access? <a href="#" className="text-sky-600 hover:underline">Contact your administrator</a>
-            </p>
+                 Remember your password?{" "}
+               <Link
+                   to="/login"
+                     className="font-medium text-sky-600 hover:underline"
+                  >
+                      Back to login
+                </Link>
+                </p>
           </div>
         </div>
       </div>
@@ -113,4 +97,4 @@ const Login = () => {
   );
 };
 
-export default Login;
+export default ForgotPassword;
