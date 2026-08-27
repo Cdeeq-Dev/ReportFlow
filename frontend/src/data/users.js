@@ -1,0 +1,58 @@
+export const users = [
+  {
+    id: 'EMP-001',
+    name: 'Alex Doe',
+    department: 'Admin',
+    role: 'Super Admin',
+    phone: '+254712345678',
+    status: 'Active',
+    lastActive: '2 hours ago',
+  },
+  {
+    id: 'EMP-012',
+    name: 'Maya Chen',
+    department: 'Admin',
+    role: 'Admin',
+    phone: '+254712345679',
+    status: 'Active',
+    lastActive: '3 hours ago',
+  },
+  {
+    id: 'EMP-023',
+    name: 'Musa Ali',
+    department: 'Water / Cleaners',
+    role: 'Department Manager',
+    phone: '+254712345680',
+    status: 'Active',
+    lastActive: '1 hour ago',
+  },
+  {
+    id: 'EMP-031',
+    name: 'Samuel Reed',
+    department: 'Electrical Department',
+    role: 'Supervisor',
+    phone: '+254712345681',
+    status: 'Away',
+    lastActive: '5 hours ago',
+  },
+  {
+    id: 'EMP-044',
+    name: 'Lina Hassan',
+    department: 'Recycling',
+    role: 'Department Manager',
+    phone: '+254712345682',
+    status: 'Active',
+    lastActive: '30 minutes ago',
+  },
+  {
+    id: 'EMP-055',
+    name: 'David Kofi',
+    department: 'Extruder 1',
+    role: 'Supervisor',
+    phone: '+254712345683',
+    status: 'Active',
+    lastActive: '2 hours ago',
+  },
+]
+
+export default users
