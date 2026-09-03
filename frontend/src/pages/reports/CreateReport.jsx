@@ -6,21 +6,10 @@ function CreateReport() {
     <AppLayout title="Create report" subtitle="Submit a new company report">
       <div className="mx-auto max-w-3xl rounded-2xl border border-slate-200 bg-white p-6 shadow-sm shadow-slate-200/50">
         <form className="space-y-5">
-          <div className="grid gap-5 md:grid-cols-2">
+          <div className="grid gap-5 md:grid-cols-1">
             <div>
               <label className="mb-1.5 block text-sm font-medium text-slate-700">Report title</label>
               <input className="w-full rounded-xl border border-slate-200 bg-slate-50 px-3 py-2.5 outline-none focus:border-cyan-400" placeholder="Weekly quality summary" />
-            </div>
-
-            <div>
-              <label className="mb-1.5 block text-sm font-medium text-slate-700">Department</label>
-              <select className="w-full rounded-xl border border-slate-200 bg-slate-50 px-3 py-2.5 outline-none focus:border-cyan-400">
-                <option>Admin</option>
-                <option>Water / Cleaners</option>
-                <option>Electrical Department</option>
-                <option>Recycling</option>
-                <option>Extruder 1</option>
-              </select>
             </div>
           </div>
 

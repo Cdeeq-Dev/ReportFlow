@@ -21,6 +21,7 @@ import Activity from './pages/activity/Activity.jsx'
 import Notifications from './pages/notifications/Notifications.jsx'
 import Profile from './pages/profile/Profile.jsx'
 import Settings from './pages/settings/Settings.jsx'
+import History from './pages/history/History.jsx'
 
 function App() {
   return (
@@ -31,6 +32,9 @@ function App() {
         <Route path="/forgot-password" element={<ForgotPassword />} />
 
         <Route path="/dashboard" element={<Dashboard />} />
+        <Route path="/admin/dashboard" element={<Dashboard />} />
+        <Route path="/manager/dashboard" element={<Dashboard />} />
+        <Route path="/history" element={<History />} />
         <Route path="/reports" element={<Reports />} />
         <Route path="/reports/create" element={<CreateReport />} />
         <Route path="/reports/:id" element={<ReportDetails />} />

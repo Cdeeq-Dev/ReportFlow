@@ -30,7 +30,6 @@ function ReportTable() {
         <thead className="bg-slate-50">
           <tr className="border-b border-slate-200 text-sm text-slate-500">
             <th className="px-4 py-3 font-medium">Report title</th>
-            <th className="px-4 py-3 font-medium">Department</th>
             <th className="px-4 py-3 font-medium">Submitted by</th>
             <th className="px-4 py-3 font-medium">Date</th>
             <th className="px-4 py-3 font-medium">Priority</th>
@@ -43,7 +42,6 @@ function ReportTable() {
           {rows.map((row) => (
             <tr key={row.id} className="border-b border-slate-100 last:border-0">
               <td className="px-4 py-3 font-semibold text-slate-800">{row.title}</td>
-              <td className="px-4 py-3 text-slate-600">{row.department}</td>
               <td className="px-4 py-3 text-slate-600">{row.submittedBy}</td>
               <td className="px-4 py-3 text-slate-600">{row.date}</td>
               <td className="px-4 py-3">

@@ -1,37 +1,41 @@
-function StatCard({ title, value, change, tone = 'cyan' }) {
+function StatCard({ title, value, change, tone = 'blue' }) {
   const tones = {
-    cyan: {
-      badge: 'bg-cyan-100 text-cyan-700',
-      strong: 'from-cyan-500 to-sky-500',
+    blue: {
+      badge: 'bg-blue-100 text-blue-700',
+      accent: 'bg-blue-600',
     },
     amber: {
       badge: 'bg-amber-100 text-amber-700',
-      strong: 'from-amber-400 to-orange-500',
+      accent: 'bg-amber-500',
     },
-    emerald: {
+    green: {
       badge: 'bg-emerald-100 text-emerald-700',
-      strong: 'from-emerald-500 to-teal-500',
+      accent: 'bg-emerald-600',
     },
-    rose: {
-      badge: 'bg-rose-100 text-rose-700',
-      strong: 'from-rose-500 to-pink-500',
+    red: {
+      badge: 'bg-red-100 text-red-700',
+      accent: 'bg-red-500',
+    },
+    slate: {
+      badge: 'bg-slate-200 text-slate-700',
+      accent: 'bg-slate-700',
     },
   }
 
-  const selectedTone = tones[tone] || tones.cyan
+  const selectedTone = tones[tone] || tones.blue
 
   return (
-    <div className="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm shadow-slate-200/70">
-      <div className="flex items-center justify-between gap-4">
+    <div className="rounded-xl border border-slate-200 bg-white p-4 shadow-[0_1px_0_rgba(15,23,42,0.02)]">
+      <div className="flex items-center justify-between gap-3">
         <p className="text-sm font-medium text-slate-500">{title}</p>
-        <span className={`rounded-full px-2.5 py-1 text-xs font-semibold ${selectedTone.badge}`}>
+        <span className={`inline-flex rounded-full px-2 py-1 text-[11px] font-semibold ${selectedTone.badge}`}>
           {change}
         </span>
       </div>
 
-      <div className="mt-5 flex items-end justify-between">
-        <p className="text-3xl font-bold tracking-tight text-slate-900">{value}</p>
-        <div className={`h-10 w-10 rounded-xl bg-linear-to-br ${selectedTone.strong}`} />
+      <div className="mt-5 flex items-end justify-between gap-3">
+        <p className="text-2xl font-semibold tracking-tight text-slate-900">{value}</p>
+        <div className={`h-9 w-9 rounded-md ${selectedTone.accent}`} />
       </div>
     </div>
   )
