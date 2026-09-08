@@ -2,7 +2,7 @@ import { useLocation } from 'react-router-dom'
 import AppLayout from '../../components/layout/AppLayout.jsx'
 import ManagerDashboard from '../../components/dashboard/ManagerDashboard.jsx'
 import AdminDashboard from '../../components/dashboard/AdminDashboard.jsx'
-import { useRole } from '../../context/RoleContext.jsx'
+import { useRole } from '../../context/useRole.js'
 
 function Dashboard() {
   const { role } = useRole()
@@ -15,8 +15,8 @@ function Dashboard() {
 
   return (
     <AppLayout
-      title={resolvedRole === 'Admin' ? 'Company overview' : 'Department overview'}
-      subtitle={resolvedRole === 'Admin' ? 'Company-wide operational overview' : 'Electrical Department'}
+      title={resolvedRole === 'Admin' ? 'Admin Dashboard' : 'Department overview'}
+      subtitle={resolvedRole === 'Admin' ? 'Company-wide operations overview' : 'Electrical Department'}
       role={resolvedRole}
     >
       {resolvedRole === 'Admin' ? <AdminDashboard /> : <ManagerDashboard />}

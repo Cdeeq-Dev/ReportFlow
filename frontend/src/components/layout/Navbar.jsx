@@ -1,17 +1,8 @@
-import { useLocation, useNavigate } from 'react-router-dom'
-import { useRole } from '../../context/RoleContext.jsx'
+import { useLocation } from 'react-router-dom'
 
 function Navbar({ title, subtitle, actions, onMenuToggle, role }) {
-  const { setRole } = useRole()
-  const navigate = useNavigate()
   const location = useLocation()
   const currentRole = role || (location.pathname.startsWith('/admin') ? 'Admin' : 'Manager')
-
-  const handleRoleChange = (event) => {
-    const nextRole = event.target.value
-    setRole(nextRole)
-    navigate(nextRole === 'Admin' ? '/admin/dashboard' : '/manager/dashboard')
-  }
 
   return (
     <header className="border-b border-slate-200 bg-white px-4 py-4 sm:px-6">
@@ -36,18 +27,6 @@ function Navbar({ title, subtitle, actions, onMenuToggle, role }) {
         </div>
 
         <div className="flex items-center gap-2 sm:gap-3">
-          <label className="hidden rounded-xl border border-slate-200 bg-slate-50 px-2 py-2 text-xs text-slate-600 lg:flex lg:items-center lg:gap-2">
-            <span className="font-medium text-slate-700">Role</span>
-            <select
-              value={currentRole}
-              onChange={handleRoleChange}
-              className="rounded-lg border border-slate-200 bg-white px-2 py-1 text-xs font-medium text-slate-700 outline-none"
-            >
-              <option value="Manager">Manager</option>
-              <option value="Admin">Admin</option>
-            </select>
-          </label>
-
           <button
             type="button"
             className="relative inline-flex h-10 w-10 items-center justify-center rounded-xl border border-slate-200 bg-slate-50 text-slate-700 transition hover:bg-slate-100"
@@ -65,7 +44,7 @@ function Navbar({ title, subtitle, actions, onMenuToggle, role }) {
               {currentRole === 'Admin' ? 'AD' : 'AM'}
             </div>
             <div className="hidden text-left sm:block">
-              <p className="text-sm font-semibold text-slate-800">{currentRole === 'Admin' ? 'Aisha Bello' : 'Ahmed Musa'}</p>
+              <p className="text-sm font-semibold text-slate-800">{currentRole === 'Admin' ? 'Abubakar' : 'Ahmed Musa'}</p>
               <p className="text-[11px] text-slate-500">{currentRole === 'Admin' ? 'Administrator' : 'Electrical Department'}</p>
             </div>
           </div>

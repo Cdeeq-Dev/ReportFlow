@@ -1,21 +1,21 @@
 @import "tailwindcss";
 
 :root {
-  --bg: #f8fafc;
+  --bg: #f4f7f7;
   --surface: #ffffff;
-  --surface-alt: #f1f5f9;
-  --surface-strong: #e2e8f0;
-  --text: #0f172a;
-  --text-muted: #475569;
-  --text-soft: #64748b;
-  --border: #e2e8f0;
-  --primary: #2563eb;
-  --primary-soft: #dbeafe;
-  --success: #16a34a;
-  --warning: #d97706;
-  --danger: #dc2626;
-  --info: #2563eb;
-  --navy: #0f172a;
+  --surface-alt: #edf3f2;
+  --surface-strong: #dbe5e5;
+  --text: #17282b;
+  --text-muted: #465858;
+  --text-soft: #617272;
+  --border: #dbe5e5;
+  --primary: #0f8077;
+  --primary-soft: #ccefeb;
+  --success: #0f8f68;
+  --warning: #b7791f;
+  --danger: #c2413d;
+  --info: #0f8077;
+  --navy: #102024;
 }
 
 html,
@@ -105,3 +105,73 @@ a {
 ::-webkit-scrollbar-thumb:hover {
   background: #94a3b8;
 }
+
+/* Shared palette overrides keep the existing UI structure while giving the whole app one visual language. */
+.bg-slate-50 { background-color: #f8fbfb !important; }
+.bg-slate-100 { background-color: #f4f7f7 !important; }
+.bg-slate-200 { background-color: #e6eeee !important; }
+.bg-slate-800 { background-color: #233437 !important; }
+.bg-slate-900 { background-color: #17282b !important; }
+.bg-slate-950 { background-color: #102024 !important; }
+.text-slate-300 { color: #b2c1c1 !important; }
+.text-slate-400 { color: #8a9a9a !important; }
+.text-slate-500 { color: #617272 !important; }
+.text-slate-600 { color: #465858 !important; }
+.text-slate-700 { color: #324447 !important; }
+.text-slate-800 { color: #233437 !important; }
+.text-slate-900 { color: #17282b !important; }
+.text-slate-200 { color: #d5e0e0 !important; }
+.border-slate-100 { border-color: #edf3f2 !important; }
+.border-slate-200 { border-color: #dbe5e5 !important; }
+.border-slate-700 { border-color: #405557 !important; }
+.border-slate-800 { border-color: #2c4144 !important; }
+.hover\:bg-slate-50:hover { background-color: #f8fbfb !important; }
+.hover\:bg-slate-100:hover { background-color: #edf3f2 !important; }
+.hover\:bg-slate-900:hover { background-color: #17282b !important; }
+
+.bg-blue-50 { background-color: #e6f7f5 !important; }
+.bg-blue-100 { background-color: #ccefeb !important; }
+.bg-blue-500 { background-color: #0f9d91 !important; }
+.bg-blue-600 { background-color: #0f8077 !important; }
+.text-blue-700 { color: #0a6b64 !important; }
+.text-blue-800 { color: #07574f !important; }
+.border-blue-500 { border-color: #0f9d91 !important; }
+.hover\:text-blue-800:hover { color: #07574f !important; }
+
+.bg-cyan-400 { background-color: #39a6ad !important; }
+.bg-cyan-500 { background-color: #22939b !important; }
+.bg-cyan-600 { background-color: #147c86 !important; }
+.text-cyan-700 { color: #14717a !important; }
+.text-cyan-800 { color: #0f5d65 !important; }
+.border-cyan-400 { border-color: #39a6ad !important; }
+.focus\:border-cyan-400:focus { border-color: #39a6ad !important; }
+
+.bg-emerald-50 { background-color: #e4f6ef !important; }
+.bg-emerald-100 { background-color: #c9eddf !important; }
+.bg-emerald-500 { background-color: #18a477 !important; }
+.bg-emerald-600 { background-color: #0f8f68 !important; }
+.text-emerald-700 { color: #087052 !important; }
+
+.bg-amber-50 { background-color: #fff6df !important; }
+.bg-amber-100 { background-color: #fce9b7 !important; }
+.bg-amber-500 { background-color: #c58a22 !important; }
+.text-amber-700 { color: #9a6812 !important; }
+
+.bg-red-50 { background-color: #fff0ef !important; }
+.bg-red-100 { background-color: #fbd8d5 !important; }
+.bg-red-500 { background-color: #d0524b !important; }
+.text-red-700 { color: #a63833 !important; }
+.border-red-200 { border-color: #f2b8b3 !important; }
+
+.bg-rose-50 { background-color: #fff0f1 !important; }
+.bg-rose-100 { background-color: #fbdadd !important; }
+.text-rose-700 { color: #a43f4a !important; }
+.bg-violet-100 { background-color: #eeeafd !important; }
+.text-violet-700 { color: #6551a1 !important; }
+
+.from-cyan-400 { --tw-gradient-from: #39a6ad var(--tw-gradient-from-position) !important; }
+.from-cyan-500 { --tw-gradient-from: #22939b var(--tw-gradient-from-position) !important; }
+.to-blue-500 { --tw-gradient-to: #0f8077 var(--tw-gradient-to-position) !important; }
+.to-blue-600 { --tw-gradient-to: #0a6b64 var(--tw-gradient-to-position) !important; }
+.shadow-cyan-500\/20 { --tw-shadow-color: rgb(34 147 155 / 0.2) !important; }
+.shadow-cyan-500\/30 { --tw-shadow-color: rgb(34 147 155 / 0.3) !important; }

@@ -129,17 +129,12 @@ function Sidebar({ mobileOpen, onClose, role }) {
           </nav>
 
           <div className="mt-auto pt-4">
-            <div className="rounded-xl border border-slate-800 bg-slate-900/80 p-2.5">
-              <p className="text-[9px] uppercase tracking-[0.18em] text-slate-400">Active queue</p>
-              <div className="mt-2 flex items-end justify-between"><span className="text-xl font-semibold text-white">{currentRole === 'Admin' ? '24' : '12'}</span><span className="text-[10px] text-slate-400">{currentRole === 'Admin' ? 'approvals' : 'items'}</span></div>
-            </div>
-
             <div className="mt-3 rounded-xl border border-slate-800 bg-slate-900/60 p-2.5">
               <p className="text-[9px] uppercase tracking-[0.16em] text-slate-400">User</p>
               <div className="mt-2 flex items-center gap-3">
                 <div className="flex h-8 w-8 items-center justify-center rounded-full bg-slate-700 text-[10px] font-semibold text-white">{currentRole === 'Admin' ? 'AD' : 'AM'}</div>
                 <div>
-                  <p className="text-xs font-medium text-white">{currentRole === 'Admin' ? 'Aisha Bello' : 'Ahmed Musa'}</p>
+                  <p className="text-xs font-medium text-white">{currentRole === 'Admin' ? 'Abubakar' : 'Ahmed Musa'}</p>
                   <p className="text-[10px] text-slate-400">{currentRole === 'Admin' ? 'Admin ID: AD-204' : 'ID: MGR-118'}</p>
                 </div>
               </div>

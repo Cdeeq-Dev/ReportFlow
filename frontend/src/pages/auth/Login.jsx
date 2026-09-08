@@ -66,14 +66,14 @@ function Login() {
           </div>
         </div>
 
-        <div className="p-6 sm:p-8 lg:p-10">
+        <div className="p-6 sm:p-8 lg:p-8">
           <div className="mx-auto max-w-md">
             <div className="mb-6 text-center md:text-left">
               <p className="text-[11px] font-semibold uppercase tracking-[0.2em] text-slate-500">Welcome</p>
               <h1 className="mt-2 text-3xl font-semibold text-slate-900">Sign in</h1>
             </div>
 
-            <div className="mb-6 grid grid-cols-2 rounded-xl border border-slate-200 bg-slate-50 p-1">
+            <div className="mb-5 grid grid-cols-2 rounded-xl border border-slate-200 bg-slate-50 p-1">
               {['Manager', 'Admin'].map((role) => (
                 <button
                   key={role}
@@ -94,37 +94,37 @@ function Login() {
               </div>
             ) : null}
 
-            <form onSubmit={handleSubmit} className="space-y-5">
-              <div className="rounded-xl border border-slate-200 bg-slate-50 p-4">
+            <form onSubmit={handleSubmit} className="space-y-4">
+              <div className="rounded-xl border border-slate-200 bg-slate-50 p-3">
                 <div className="mb-3 flex items-center justify-between text-xs uppercase tracking-[0.16em] text-slate-400">
                   <span>{isManager ? 'Manager access' : 'Administrative access'}</span>
                   <span>{isManager ? 'Department operations' : 'Company-wide'}</span>
                 </div>
 
                 {isManager ? (
-                  <div className="space-y-3">
+                  <div className="grid gap-2 sm:grid-cols-3">
                     <div>
-                      <label className="mb-1.5 block text-sm font-medium text-slate-700">Name</label>
-                      <div className="rounded-lg border border-slate-200 bg-white px-3 py-2.5 text-sm text-slate-700">Ahmed Musa</div>
+                      <label className="mb-1 block text-[11px] font-medium uppercase tracking-wide text-slate-500">Name</label>
+                      <div className="rounded-lg border border-slate-200 bg-white px-2.5 py-2 text-sm text-slate-700">Ahmed Musa</div>
                     </div>
                     <div>
-                      <label className="mb-1.5 block text-sm font-medium text-slate-700">ID Number</label>
-                      <div className="rounded-lg border border-slate-200 bg-white px-3 py-2.5 text-sm text-slate-700">MGR-118</div>
+                      <label className="mb-1 block text-[11px] font-medium uppercase tracking-wide text-slate-500">ID Number</label>
+                      <div className="rounded-lg border border-slate-200 bg-white px-2.5 py-2 text-sm text-slate-700">MGR-118</div>
                     </div>
                     <div>
-                      <label className="mb-1.5 block text-sm font-medium text-slate-700">Department</label>
-                      <div className="rounded-lg border border-slate-200 bg-white px-3 py-2.5 text-sm text-slate-700">Electrical Department</div>
+                      <label className="mb-1 block text-[11px] font-medium uppercase tracking-wide text-slate-500">Department</label>
+                      <div className="rounded-lg border border-slate-200 bg-white px-2.5 py-2 text-sm text-slate-700">Electrical Department</div>
                     </div>
                   </div>
                 ) : (
-                  <div className="space-y-3">
+                  <div className="grid gap-2 sm:grid-cols-2">
                     <div>
-                      <label className="mb-1.5 block text-sm font-medium text-slate-700">Name</label>
-                      <div className="rounded-lg border border-slate-200 bg-white px-3 py-2.5 text-sm text-slate-700">Aisha Bello</div>
+                      <label className="mb-1 block text-[11px] font-medium uppercase tracking-wide text-slate-500">Name</label>
+                      <div className="rounded-lg border border-slate-200 bg-white px-2.5 py-2 text-sm text-slate-700">Aisha Bello</div>
                     </div>
                     <div>
-                      <label className="mb-1.5 block text-sm font-medium text-slate-700">ID Number</label>
-                      <div className="rounded-lg border border-slate-200 bg-white px-3 py-2.5 text-sm text-slate-700">ADM-204</div>
+                      <label className="mb-1 block text-[11px] font-medium uppercase tracking-wide text-slate-500">ID Number</label>
+                      <div className="rounded-lg border border-slate-200 bg-white px-2.5 py-2 text-sm text-slate-700">ADM-204</div>
                     </div>
                   </div>
                 )}
@@ -140,7 +140,7 @@ function Login() {
                   type="text"
                   value={employeeId}
                   onChange={(event) => setEmployeeId(event.target.value)}
-                  className="w-full rounded-lg border border-slate-200 bg-slate-50 px-3 py-2.5 text-slate-800 outline-none transition focus:border-blue-500 focus:bg-white"
+                  className="w-full rounded-lg border border-slate-200 bg-slate-50 px-3 py-2 text-slate-800 outline-none transition focus:border-blue-500 focus:bg-white"
                   placeholder="e.g. MGR-118 or ADM-204"
                 />
               </div>
@@ -161,7 +161,7 @@ function Login() {
                     type={showPassword ? 'text' : 'password'}
                     value={password}
                     onChange={(event) => setPassword(event.target.value)}
-                    className="w-full rounded-lg border border-slate-200 bg-slate-50 px-3 py-2.5 pr-10 text-slate-800 outline-none transition focus:border-blue-500 focus:bg-white"
+                    className="w-full rounded-lg border border-slate-200 bg-slate-50 px-3 py-2 pr-10 text-slate-800 outline-none transition focus:border-blue-500 focus:bg-white"
                     placeholder="Enter your password"
                   />
                   <button
@@ -189,13 +189,13 @@ function Login() {
               <button
                 type="submit"
                 disabled={isSubmitting}
-                className="w-full rounded-lg bg-slate-900 px-4 py-3 text-sm font-semibold text-white transition hover:bg-slate-800 disabled:cursor-not-allowed disabled:opacity-70"
+                className="w-full rounded-lg bg-slate-900 px-4 py-2.5 text-sm font-semibold text-white transition hover:bg-slate-800 disabled:cursor-not-allowed disabled:opacity-70"
               >
                 {isSubmitting ? 'Signing in...' : 'Sign in'}
               </button>
             </form>
 
-            <p className="mt-6 text-center text-sm text-slate-500">
+            <p className="mt-4 text-center text-sm text-slate-500">
               Need help?{' '}
               <span className="font-medium text-blue-700">Contact administrator</span>
             </p>
