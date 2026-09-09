@@ -1,0 +1,100 @@
+// ReportFlow database contract
+// use prisma-next
+
+enum UserRole {
+  ADMIN
+  MANAGER
+}
+
+enum ReportStatus {
+  PENDING
+  APPROVED
+  REJECTED
+  CHANGES_REQUESTED
+}
+
+enum RequestStatus {
+  PENDING
+  PROCESSING
+  ACCEPTED
+  REJECTED
+  DELIVERED
+}
+
+enum Priority {
+  LOW
+  MEDIUM
+  HIGH
+  URGENT
+}
+
+model Department {
+  id        Int      @id @default(autoincrement())
+  name      String   @unique
+
+  managers  User[]
+  reports   Report[]
+  requests  Request[]
+
+  createdAt TimestamptzString @default(now())
+  updatedAt temporal.updatedAtString()
+}
+
+model User {
+  id           Int       @id @default(autoincrement())
+  name         String
+  staffId      String    @unique
+  role         UserRole
+
+  passwordHash String?
+
+  department   Department? @relation(fields: [departmentId], references: [id])
+  departmentId Int?
+
+  reports      Report[]
+  requests     Request[]
+
+  isActive     Boolean   @default(true)
+
+  createdAt    TimestamptzString @default(now())
+  updatedAt    temporal.updatedAtString()
+}
+
+model Report {
+  id            Int          @id @default(autoincrement())
+  title         String
+  description   String
+
+  status        ReportStatus @default(PENDING)
+
+  adminFeedback String?
+
+  manager       User         @relation(fields: [managerId], references: [id])
+  managerId     Int
+
+  department    Department   @relation(fields: [departmentId], references: [id])
+  departmentId  Int
+
+  createdAt     TimestamptzString @default(now())
+  updatedAt     temporal.updatedAtString()
+}
+
+model Request {
+  id            Int           @id @default(autoincrement())
+  title         String
+  description   String
+
+  priority      Priority      @default(MEDIUM)
+  status        RequestStatus @default(PENDING)
+
+  adminFeedback String?
+
+  manager       User          @relation(fields: [managerId], references: [id])
+  managerId     Int
+
+  department    Department    @relation(fields: [departmentId], references: [id])
+  departmentId  Int
+
+  createdAt     TimestamptzString @default(now())
+  updatedAt     temporal.updatedAtString()
+}
