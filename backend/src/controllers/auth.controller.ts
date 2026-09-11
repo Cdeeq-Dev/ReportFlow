@@ -3,6 +3,48 @@ import type { Request, Response } from 'express';
 import jwt from 'jsonwebtoken';
 import { db } from '../prisma/db.js';
 
+export const getCurrentUser = async (
+  req: Request,
+  res: Response,
+): Promise<void> => {
+  const userId = req.user?.userId;
+
+  if (!userId) {
+    res.status(401).json({ message: 'Authentication required' });
+    return;
+  }
+
+  try {
+    const user = await db.orm.public.User.where({
+      id: userId,
+    }).first();
+
+    if (!user) {
+      res.status(404).json({ message: 'User not found' });
+      return;
+    }
+
+    if (!user.isActive) {
+      res.status(403).json({ message: 'This account is inactive' });
+      return;
+    }
+
+    res.status(200).json({
+      user: {
+        id: user.id,
+        name: user.name,
+        staffId: user.staffId,
+        role: user.role,
+        departmentId: user.departmentId,
+        isActive: user.isActive,
+      },
+    });
+  } catch (error) {
+    console.error('Failed to fetch current user:', error);
+    res.status(500).json({ message: 'Internal server error' });
+  }
+};
+
 const createToken = (
   userId: number,
   role: 'ADMIN' | 'MANAGER',

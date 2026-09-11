@@ -6,6 +6,8 @@ import authRoutes from './routes/auth.routes.js';
 import managerRoutes from './routes/manager.routes.js';
 import reportRoutes from './routes/report.routes.js';
 import requestRoutes from './routes/request.routes.js';
+import adminRoutes from './routes/admin.routes.js';
+import departmentRoutes from './routes/department.routes.js';
 
 const app = express();
 
@@ -15,8 +17,11 @@ app.use(cors());
 app.use(express.json());
 app.use('/api', authRoutes);
 app.use('/api/managers', managerRoutes);
+app.use('/api/manager', managerRoutes);
 app.use('/api/reports', reportRoutes);
 app.use('/api/requests', requestRoutes);
+app.use('/api/admin/dashboard', adminRoutes);
+app.use('/api/departments', departmentRoutes);
 
 app.get('/api/health', (_req, res) => {
   res.json({
