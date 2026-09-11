@@ -1,17 +1,18 @@
-import { useLocation } from 'react-router-dom'
+import { Navigate, useLocation } from 'react-router-dom'
 import AppLayout from '../../components/layout/AppLayout.jsx'
 import ManagerDashboard from '../../components/dashboard/ManagerDashboard.jsx'
 import AdminDashboard from '../../components/dashboard/AdminDashboard.jsx'
 import { useRole } from '../../context/useRole.js'
 
 function Dashboard() {
-  const { role } = useRole()
+  const { user, role, loading } = useRole()
   const location = useLocation()
-  const resolvedRole = location.pathname.startsWith('/admin')
-    ? 'Admin'
-    : location.pathname.startsWith('/manager')
-      ? 'Manager'
-      : role
+
+  if (!loading && !user) {
+    return <Navigate to="/login" replace state={{ from: location }} />
+  }
+
+  const resolvedRole = role === 'ADMIN' ? 'Admin' : 'Manager'
 
   return (
     <AppLayout

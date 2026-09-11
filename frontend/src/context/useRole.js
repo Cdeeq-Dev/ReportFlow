@@ -8,5 +8,8 @@ export function useRole() {
     throw new Error('useRole must be used within a RoleProvider')
   }
 
-  return context
+  return {
+    ...context,
+    role: context.user?.role,
+  }
 }

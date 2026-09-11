@@ -1,32 +1,86 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
+import { api } from '../../services/api.js'
+import { useRole } from '../../context/useRole.js'
 
 function Login() {
   const [employeeId, setEmployeeId] = useState('')
   const [password, setPassword] = useState('')
+  const [name, setName] = useState('')
   const [showPassword, setShowPassword] = useState(false)
   const [rememberMe, setRememberMe] = useState(true)
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [error, setError] = useState('')
   const [activeRole, setActiveRole] = useState('Manager')
+  const [departments, setDepartments] = useState([])
+  const [selectedDepartmentId, setSelectedDepartmentId] = useState('')
+  const [departmentLoading, setDepartmentLoading] = useState(false)
 
   const navigate = useNavigate()
+  const { login } = useRole()
 
-  const handleSubmit = (event) => {
+  useEffect(() => {
+    const loadDepartments = async () => {
+      setDepartmentLoading(true)
+      try {
+        const data = await api.get('/departments')
+        setDepartments(data)
+        if (data.length > 0) {
+          setSelectedDepartmentId(String(data[0].id))
+        }
+      } catch (err) {
+        console.error('Failed to load departments:', err)
+        setError(err.message || 'Unable to load departments')
+      } finally {
+        setDepartmentLoading(false)
+      }
+    }
+
+    loadDepartments()
+  }, [])
+
+  const handleSubmit = async (event) => {
     event.preventDefault()
     setError('')
 
-    if (!employeeId.trim() || !password.trim()) {
-      setError('Please enter your employee ID and password.')
+    if (!name.trim() || !employeeId.trim()) {
+      setError('Please enter your name and employee ID.')
+      return
+    }
+
+    if (activeRole === 'Manager' && !selectedDepartmentId) {
+      setError('Please select a department.')
       return
     }
 
     setIsSubmitting(true)
 
-    setTimeout(() => {
+    try {
+      if (activeRole === 'Admin') {
+        const payload = await api.post('/auth/admin/login', {
+          name: name.trim(),
+          staffId: employeeId.trim(),
+        })
+
+        login(payload.user, payload.token)
+        navigate('/admin/dashboard')
+        return
+      }
+
+      const payload = await api.post('/auth/manager/login', {
+        name: name.trim(),
+        staffId: employeeId.trim(),
+        departmentId: Number(selectedDepartmentId),
+        password,
+      })
+
+      login(payload.user, payload.token)
+      navigate('/manager/dashboard')
+    } catch (err) {
+      setError(err.message || 'Login failed')
+    } finally {
       setIsSubmitting(false)
-      navigate(activeRole === 'Admin' ? '/admin/dashboard' : '/manager/dashboard')
-    }, 600)
+    }
   }
 
   const isManager = activeRole === 'Manager'
@@ -94,45 +148,25 @@ function Login() {
               </div>
             ) : null}
 
-            <form onSubmit={handleSubmit} className="space-y-4">
-              <div className="rounded-xl border border-slate-200 bg-slate-50 p-3">
-                <div className="mb-3 flex items-center justify-between text-xs uppercase tracking-[0.16em] text-slate-400">
-                  <span>{isManager ? 'Manager access' : 'Administrative access'}</span>
-                  <span>{isManager ? 'Department operations' : 'Company-wide'}</span>
-                </div>
-
-                {isManager ? (
-                  <div className="grid gap-2 sm:grid-cols-3">
-                    <div>
-                      <label className="mb-1 block text-[11px] font-medium uppercase tracking-wide text-slate-500">Name</label>
-                      <div className="rounded-lg border border-slate-200 bg-white px-2.5 py-2 text-sm text-slate-700">Ahmed Musa</div>
-                    </div>
-                    <div>
-                      <label className="mb-1 block text-[11px] font-medium uppercase tracking-wide text-slate-500">ID Number</label>
-                      <div className="rounded-lg border border-slate-200 bg-white px-2.5 py-2 text-sm text-slate-700">MGR-118</div>
-                    </div>
-                    <div>
-                      <label className="mb-1 block text-[11px] font-medium uppercase tracking-wide text-slate-500">Department</label>
-                      <div className="rounded-lg border border-slate-200 bg-white px-2.5 py-2 text-sm text-slate-700">Electrical Department</div>
-                    </div>
-                  </div>
-                ) : (
-                  <div className="grid gap-2 sm:grid-cols-2">
-                    <div>
-                      <label className="mb-1 block text-[11px] font-medium uppercase tracking-wide text-slate-500">Name</label>
-                      <div className="rounded-lg border border-slate-200 bg-white px-2.5 py-2 text-sm text-slate-700">Aisha Bello</div>
-                    </div>
-                    <div>
-                      <label className="mb-1 block text-[11px] font-medium uppercase tracking-wide text-slate-500">ID Number</label>
-                      <div className="rounded-lg border border-slate-200 bg-white px-2.5 py-2 text-sm text-slate-700">ADM-204</div>
-                    </div>
-                  </div>
-                )}
+            <form onSubmit={handleSubmit} className="space-y-3">
+              <div>
+                <label htmlFor="name" className="mb-1.5 block text-sm font-medium text-slate-700">
+                  Name
+                </label>
+                <input
+                  id="name"
+                  name="name"
+                  type="text"
+                  value={name}
+                  onChange={(event) => setName(event.target.value)}
+                  className="w-full rounded-lg border border-slate-200 bg-slate-50 px-3 py-2 text-slate-800 outline-none transition focus:border-blue-500 focus:bg-white"
+                  placeholder="Enter your name"
+                />
               </div>
 
               <div>
                 <label htmlFor="employeeId" className="mb-1.5 block text-sm font-medium text-slate-700">
-                  Employee ID / Phone number
+                  Employee ID / Staff ID
                 </label>
                 <input
                   id="employeeId"
@@ -145,34 +179,50 @@ function Login() {
                 />
               </div>
 
-              <div>
-                <div className="mb-1.5 flex items-center justify-between">
-                  <label htmlFor="password" className="text-sm font-medium text-slate-700">
-                    Password
-                  </label>
-                  <Link to="/forgot-password" className="text-sm font-medium text-blue-700 hover:text-blue-800">
-                    Forgot password?
-                  </Link>
+              {isManager ? (
+                <div className="space-y-1">
+                  <div className="mb-1 flex items-center justify-between">
+                    <label htmlFor="department" className="text-sm font-medium text-slate-700">
+                      Department
+                    </label>
+                  </div>
+                  <div className="relative">
+                    <select
+                      id="department"
+                      name="department"
+                      value={selectedDepartmentId}
+                      disabled={departmentLoading || departments.length === 0}
+                      onChange={(event) => setSelectedDepartmentId(event.target.value)}
+                      className="w-full rounded-lg border border-slate-200 bg-slate-50 px-3 py-2 text-slate-800 outline-none transition focus:border-blue-500 focus:bg-white"
+                    >
+                      {departments.map((department) => (
+                        <option key={department.id} value={department.id}>
+                          {department.name}
+                        </option>
+                      ))}
+                    </select>
+                  </div>
+
+                  <div className="relative">
+                    <input
+                      id="password"
+                      name="password"
+                      type={showPassword ? 'text' : 'password'}
+                      value={password}
+                      onChange={(event) => setPassword(event.target.value)}
+                      className="w-full rounded-lg border border-slate-200 bg-slate-50 px-3 py-2 pr-10 text-slate-800 outline-none transition focus:border-blue-500 focus:bg-white"
+                      placeholder="Enter your password"
+                    />
+                    <button
+                      type="button"
+                      className="absolute inset-y-0 right-3 flex items-center text-sm text-slate-500"
+                      onClick={() => setShowPassword((value) => !value)}
+                    >
+                      {showPassword ? 'Hide' : 'Show'}
+                    </button>
+                  </div>
                 </div>
-                <div className="relative">
-                  <input
-                    id="password"
-                    name="password"
-                    type={showPassword ? 'text' : 'password'}
-                    value={password}
-                    onChange={(event) => setPassword(event.target.value)}
-                    className="w-full rounded-lg border border-slate-200 bg-slate-50 px-3 py-2 pr-10 text-slate-800 outline-none transition focus:border-blue-500 focus:bg-white"
-                    placeholder="Enter your password"
-                  />
-                  <button
-                    type="button"
-                    className="absolute inset-y-0 right-3 flex items-center text-sm text-slate-500"
-                    onClick={() => setShowPassword((value) => !value)}
-                  >
-                    {showPassword ? 'Hide' : 'Show'}
-                  </button>
-                </div>
-              </div>
+              ) : null}
 
               <div className="flex items-center justify-between gap-3">
                 <label className="inline-flex items-center gap-2 text-sm text-slate-600">
@@ -188,7 +238,7 @@ function Login() {
 
               <button
                 type="submit"
-                disabled={isSubmitting}
+                disabled={isSubmitting || departmentLoading}
                 className="w-full rounded-lg bg-slate-900 px-4 py-2.5 text-sm font-semibold text-white transition hover:bg-slate-800 disabled:cursor-not-allowed disabled:opacity-70"
               >
                 {isSubmitting ? 'Signing in...' : 'Sign in'}
